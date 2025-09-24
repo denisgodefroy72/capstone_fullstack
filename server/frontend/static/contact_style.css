@@ -1,0 +1,136 @@
+:root{
+  --card-radius: 20px;
+  --card-shadow: 0 8px 24px rgba(0,0,0,.12);
+  --border: 1px solid #e7e7e7;
+  --blue: #1a73e8;        /* titres/links à droite */
+  --teal: #11c5b5;        /* icône support à gauche */
+  --text: #1d1d1f;
+  --muted: #6b7280;
+  --maxw: 980px;
+}
+
+* { box-sizing: border-box; }
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: #f6f7fb;
+}
+
+.page{
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  padding: 32px 16px;
+}
+
+.card{
+  width: min(100%, var(--maxw));
+  background:#fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: var(--border);
+  overflow:hidden; /* pour arrondir proprement la bannière */
+}
+
+/* Bandeau image */
+.banner img{
+  display:block;
+  width:100%;
+  height: 210px;                 /* hauteur proche du visuel fourni */
+  object-fit: cover;
+}
+
+/* Grille avec séparateur vertical au centre (colonne de 1px) */
+.content{
+  display: grid;
+  grid-template-columns: 1fr 1px 1.4fr; /* gauche | séparateur | droite */
+  align-items: center;
+  gap: 0; /* le séparateur occupe sa propre colonne */
+  padding: 28px 32px;
+}
+
+/* Séparateur vertical */
+.content::before{
+  content:"";
+  grid-column: 2 / 3;
+  align-self: stretch;
+  width:1px;
+  background: #cfd4dc;
+}
+
+/* Colonne gauche */
+.left{
+  grid-column: 1 / 2;
+  display:grid;
+  place-items:center;
+  padding: 16px;
+}
+
+.support-icon{
+  width: 140px;
+  height: 140px;
+  fill: var(--teal);
+  opacity: 0.95;
+}
+
+/* Colonne droite */
+.right{
+  grid-column: 3 / 4;
+  padding: 8px 8px 8px 24px;
+}
+
+.contact-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap: 14px;
+}
+
+.contact-list li{
+  padding: 6px 0 10px;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.contact-list li:last-child{
+  border-bottom: none;
+}
+
+.contact-list h3{
+  margin:0 0 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.contact-list a{
+  font-size: 15px;
+  color: var(--blue);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.contact-list a:hover{
+  text-decoration: underline;
+}
+
+/* Responsif : empilement sur mobile, séparateur horizontal */
+@media (max-width: 700px){
+  .content{
+    grid-template-columns: 1fr;           /* empilé */
+    padding: 20px 18px;
+  }
+  .content::before{
+    grid-column: 1 / -1;
+    height:1px;
+    width:100%;
+    background:#cfd4dc;
+    margin: 18px 0;
+  }
+  .left{ padding: 6px 0 18px; }
+  .right{ padding: 0; }
+  .support-icon{ width: 110px; height:110px; }
+  .banner img{ height: 180px; }
+}
